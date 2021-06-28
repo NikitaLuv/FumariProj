@@ -1,0 +1,45 @@
+﻿@page "/cart"
+@inject ICartService CartService;
+@using FumariProject.Models;
+
+<h3>Shopping Cart</h3>
+@if (products == null || products.Count <= 0)
+{
+    <span>Ваша корзина пуста!</span>
+}
+
+else
+{
+    <div>
+        @foreach (var item in products)
+        {
+            <div class="item-container">
+                <div class="item-image-wrapper"><img src="@item.Image" class="item-image" /></div>
+                <div class="item-name">
+                    <h5><a href="#">@item.Flavour</a></h5>
+                </div>
+                <div class="item-price">@item.Price</div>
+            </div>
+        }
+        <div class="item-price">
+            Сумма заказа: @products.Sum(item => item.Price)
+        </div>
+    </div>
+}
+
+
+}
+
+@code {
+    List<MerchModel> products = new List<MerchModel>();
+
+    //protected override async Task OnInitializedAsync(bool firstRender)
+    //{
+
+    //}
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await CartService.GetCartItems();
+    }
+}
