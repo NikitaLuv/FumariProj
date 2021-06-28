@@ -1,6 +1,5 @@
 ﻿@page "/"
 @using FumariProject.Models;
-@using FumariProject.Database;
 @inject ILocalStorageService LocalStorage;
 @inject IToastService ToastService;
 @inject ICartService CartService;
@@ -43,8 +42,8 @@
                 {
                     var selProduct = products[k];
                     <div class="col-sm">
-                        <img class="align-self-center w-50 merch_image" src="@products[k].ImagePath" />
-                        <p class="merch_text">@products[k].Name</p>
+                        <img class="align-self-center w-50 merch_image" src="@products[k].Image" />
+                        <p class="merch_text">@products[k].Flavour</p>
                         <p class="merch_text">350</p>
                         <button @onclick="() => AddToCart(selProduct)" class="btn btn-primary merch_button"><i class="oi oi-cart"></i>&nbsp;&nbsp;&nbsp;Add to Cart</button>
                     </div>
@@ -57,28 +56,25 @@
 
 @code{
     //    int count = 0;
-    //    IList<MerchModel> merchList = new List<MerchModel>()
-    //{
-    //        new MerchModel{Flavour = "Арбуз", Price = 350, Image = "/Images/fumarimerch/merch1.jpg"},
-    //        new MerchModel{Flavour = "Ананас груша", Price = 350, Image = "/Images/fumarimerch/merch2.jpg"},
-    //        new MerchModel{Flavour = "Банана папайа", Price = 350, Image = "/Images/fumarimerch/merch3.jpg"},
-    //        new MerchModel{Flavour = "Виноград алоэ", Price = 350, Image = "/Images/fumarimerch/merch4.jpg"},
-    //        new MerchModel{Flavour = "Виноградный взрыв", Price = 350, Image = "/Images/fumarimerch/merch5.jpg"},
-    //        new MerchModel{Flavour = "Ванильное мороженое с бананом", Price = 350, Image = "/Images/fumarimerch/merch6.jpg"},
-    //    };
-
-    private List<Product> GetProducts()
+    List<MerchModel> merchList = new List<MerchModel>()
     {
-        var dbContext = new FumariProjectDbContext();
-        return dbContext.Products.ToList();
+            new MerchModel{Flavour = "Арбуз", Price = 350, Image = "/Images/fumarimerch/merch1.jpg"},
+            new MerchModel{Flavour = "Ананас груша", Price = 350, Image = "/Images/fumarimerch/merch2.jpg"},
+            new MerchModel{Flavour = "Банана папайа", Price = 350, Image = "/Images/fumarimerch/merch3.jpg"},
+            new MerchModel{Flavour = "Виноград алоэ", Price = 350, Image = "/Images/fumarimerch/merch4.jpg"},
+            new MerchModel{Flavour = "Виноградный взрыв", Price = 350, Image = "/Images/fumarimerch/merch5.jpg"},
+            new MerchModel{Flavour = "Ванильное мороженое с бананом", Price = 350, Image = "/Images/fumarimerch/merch6.jpg"},
+        };
+
+    private List<MerchModel> GetProducts()
+    {
+        return merchList;
     }
 
 
-    private async Task AddToCart(Product product)
+    private async Task AddToCart(MerchModel product)
     {
-
-        var merchModel = new MerchModel { Flavour = product.Name, Image = product.ImagePath, Price = 350 };
-        await CartService.AddToCart(merchModel);
+        await CartService.AddToCart(product);
     }
 
 }

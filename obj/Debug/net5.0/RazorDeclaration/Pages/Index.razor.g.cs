@@ -110,13 +110,6 @@ using FumariProject.Models;
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-#line 3 "D:\Projects\FumariProject\FumariProject\Pages\Index.razor"
-using FumariProject.Database;
-
-#line default
-#line hidden
-#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/")]
     public partial class Index : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -126,31 +119,28 @@ using FumariProject.Database;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 58 "D:\Projects\FumariProject\FumariProject\Pages\Index.razor"
+#line 57 "D:\Projects\FumariProject\FumariProject\Pages\Index.razor"
       
     //    int count = 0;
-    //    IList<MerchModel> merchList = new List<MerchModel>()
-    //{
-    //        new MerchModel{Flavour = "Арбуз", Price = 350, Image = "/Images/fumarimerch/merch1.jpg"},
-    //        new MerchModel{Flavour = "Ананас груша", Price = 350, Image = "/Images/fumarimerch/merch2.jpg"},
-    //        new MerchModel{Flavour = "Банана папайа", Price = 350, Image = "/Images/fumarimerch/merch3.jpg"},
-    //        new MerchModel{Flavour = "Виноград алоэ", Price = 350, Image = "/Images/fumarimerch/merch4.jpg"},
-    //        new MerchModel{Flavour = "Виноградный взрыв", Price = 350, Image = "/Images/fumarimerch/merch5.jpg"},
-    //        new MerchModel{Flavour = "Ванильное мороженое с бананом", Price = 350, Image = "/Images/fumarimerch/merch6.jpg"},
-    //    };
-
-    private List<Product> GetProducts()
+    List<MerchModel> merchList = new List<MerchModel>()
     {
-        var dbContext = new FumariProjectDbContext();
-        return dbContext.Products.ToList();
+            new MerchModel{Flavour = "Арбуз", Price = 350, Image = "/Images/fumarimerch/merch1.jpg"},
+            new MerchModel{Flavour = "Ананас груша", Price = 350, Image = "/Images/fumarimerch/merch2.jpg"},
+            new MerchModel{Flavour = "Банана папайа", Price = 350, Image = "/Images/fumarimerch/merch3.jpg"},
+            new MerchModel{Flavour = "Виноград алоэ", Price = 350, Image = "/Images/fumarimerch/merch4.jpg"},
+            new MerchModel{Flavour = "Виноградный взрыв", Price = 350, Image = "/Images/fumarimerch/merch5.jpg"},
+            new MerchModel{Flavour = "Ванильное мороженое с бананом", Price = 350, Image = "/Images/fumarimerch/merch6.jpg"},
+        };
+
+    private List<MerchModel> GetProducts()
+    {
+        return merchList;
     }
 
 
-    private async Task AddToCart(Product product)
+    private async Task AddToCart(MerchModel product)
     {
-
-        var merchModel = new MerchModel { Flavour = product.Name, Image = product.ImagePath, Price = 350 };
-        await CartService.AddToCart(merchModel);
+        await CartService.AddToCart(product);
     }
 
 
